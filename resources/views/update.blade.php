@@ -19,11 +19,12 @@
 
                 <div class="form-group">
                     <label for="company_id">メーカー名</label>
-                    <select class="form-control" id="company_id" name="company_id" placeholder="メーカー名" value="{{ old('company_id') }}">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
+                    <select class="form-control" id="company_id" name="company_id">
+                        @foreach($companies as $company)
+                            <option value="{{ $company->id }}" {{ old('company_id', $update->company_id) == $company->id ? 'selected' : '' }}>
+                                {{ $company->company_name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 

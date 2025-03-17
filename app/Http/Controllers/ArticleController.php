@@ -15,23 +15,25 @@ class ArticleController extends Controller
     public function showList(Request $request){
         $keyword = $request->input('keyword', '');
         $company_id = $request->input('company_id', ''); // 会社IDの検索用
+        
+        // 会社一覧を取得
+        $companies = Company::all(); 
     
-        $companies = Company::all(); // 会社一覧を取得
-    
-        // 商品を検索
-        $articles = Product::when($keyword, function($query, $keyword) {
-                            return $query->where('product_name', 'LIKE', "%{$keyword}%");
-                        })
-                        ->when($company_id, function($query, $company_id) {
-                            return $query->where('company_id', $company_id);
-                        })
-                        ->get();
+        // 商品を検索（会社名も取得）
+        $articles = Product::with('company')  // 会社情報を一緒に取得
+                    ->when($keyword, function($query, $keyword) {
+                        return $query->where('product_name', 'LIKE', "%{$keyword}%");
+                    })
+                    ->when($company_id, function($query, $company_id) {
+                        return $query->where('company_id', $company_id);
+                    })
+                    ->get();
     
         return view('list', [
             'articles' => $articles,
             'keyword' => $keyword,
             'companies' => $companies,
-            'company_id' => $company_id // ここをビューに渡す
+            'company_id' => $company_id 
         ]);
     }
     
@@ -47,14 +49,15 @@ class ArticleController extends Controller
 
     //商品詳細表示
     public function detail($id) {
-        $detail = DB::table('products')->find($id);
+        $detail = Product::with('company')->find($id);
         return view('detail', compact('detail'));
     }
 
-    //情報更新画面表示
+    // 情報更新画面表示
     public function update($id) {
         $update = DB::table('products')->find($id);
-        return view('update', compact('update'));
+        $companies = Company::all();  // 会社一覧を取得
+        return view('update', compact('update', 'companies'));
     }
 
     public function registSubmit(ArticleRequest $request) {

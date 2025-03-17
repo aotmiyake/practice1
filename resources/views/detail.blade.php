@@ -24,7 +24,7 @@
                         <td>{{ $detail->product_name }}</td>
                         <td>{{ $detail->price }}</td>
                         <td>{{ $detail->stock }}</td>
-                        <td>{{ $detail->company_id }}</td>
+                        <td>{{ optional($detail->company)->company_name ?? '不明な会社' }}</td>
                         <td>{{ $detail->comment }}</td>
                         <td>
                         <a href="{{ route('update', ['id'=>$detail->id]) }}" class="btn btn-primary">詳細</a>
