@@ -11,24 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 { 
-    //一覧表示・商品検索
-    public function showList(Request $request){
+    public function showList(Request $request) {
+        $articleModel = new Article();
         $keyword = $request->input('keyword', '');
-        $company_id = $request->input('company_id', ''); // 会社IDの検索用
-        
-        // 会社一覧を取得
-        $companies = Company::all(); 
-    
-        // 商品を検索（会社名も取得）
-        $articles = Product::with('company')  // 会社情報を一緒に取得
-                    ->when($keyword, function($query, $keyword) {
-                        return $query->where('product_name', 'LIKE', "%{$keyword}%");
-                    })
-                    ->when($company_id, function($query, $company_id) {
-                        return $query->where('company_id', $company_id);
-                    })
-                    ->get();
-    
+        $company_id = $request->input('company_id', '');
+
+        $companies = $articleModel->getListCompanies();
+        $articles = $articleModel->searchList($keyword, $company_id);
+
         return view('list', [
             'articles' => $articles,
             'keyword' => $keyword,
@@ -36,69 +26,65 @@ class ArticleController extends Controller
             'company_id' => $company_id 
         ]);
     }
-    
+
     public function showRegistForm() {
-        return view('regist');
+        $companies = (new Article())->getListCompanies();
+        return view('regist', compact('companies'));
     }
 
-    //リストから商品削除
     public function delete($id) {
-        $deleteId = DB::table('products')->where('id', $id)->delete();
-        return redirect(route('list'));
+        DB::beginTransaction();
+        try {
+            (new Article())->deleteProduct($id);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            \Log::error('商品削除エラー: ' . $e->getMessage());
+            return back()->with('error', '削除処理中にエラーが発生しました。');
+        }
+    
+        return redirect(route('list'))->with('success', '商品を削除しました。');
     }
 
-    //商品詳細表示
     public function detail($id) {
-        $detail = Product::with('company')->find($id);
+        $detail = (new Article())->getProductDetail($id);
         return view('detail', compact('detail'));
     }
 
-    // 情報更新画面表示
     public function update($id) {
-        $update = DB::table('products')->find($id);
-        $companies = Company::all();  // 会社一覧を取得
+        $articleModel = new Article();
+        $update = $articleModel->getProductById($id);
+        $companies = $articleModel->getListCompanies();
         return view('update', compact('update', 'companies'));
     }
 
     public function registSubmit(ArticleRequest $request) {
-
-        // トランザクション開始
         DB::beginTransaction();
-    
         try {
-            // 登録処理呼び出し
-            $model = new Article();
-            $model->registProducts($request);
+            (new Article())->registProducts($request);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
             return back();
         }
-    
-        // 処理が完了したらregistにリダイレクト
         return redirect(route('regist'));
     }
 
-    //情報更新
-    public function updateSubmit(ArticleRequest $request , $id) {
-        DB::beginTransaction();
-        try {
-            $update = new Article();
-            $update->updateProducts($request, $id);
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            return back();
-        }
-        return redirect(route('update',['id' => $id]));
+    public function updateSubmit(Request $request, $id)
+{
+    DB::beginTransaction();
+    try {
+        $articleModel = new Article();
+        $articleModel->updateProducts($request, $id);
+        DB::commit();
+        return redirect()->route('update', ['id' => $id])->with('success', '更新しました');
+    } catch (\Exception $e) {
+        DB::rollback();
+        \Log::error('更新エラー: ' . $e->getMessage());
+        return back()->with('error', '更新に失敗しました');
     }
+}
 
-    //企業情報取得
-    public function getCompanies(){
-        return DB::table('companies')->get();
-    }
-
-    //ログイン必須にする
     public function __construct(){
         $this->middleware('auth');
     }

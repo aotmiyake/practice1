@@ -9,6 +9,8 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['company_id', 'product_name', 'price', 'stock', 'comment','img_path'];
+
     // Companyとのリレーション設定
     public function company(){
         return $this->belongsTo(Company::class);

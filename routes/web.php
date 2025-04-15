@@ -27,7 +27,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 //一覧画面に遷移
 Route::get('/list', [App\Http\Controllers\ArticleController::class, 'showList'])->name('list');
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

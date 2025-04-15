@@ -20,14 +20,20 @@
                 <tbody>
                     <tr>
                         <td>{{ $detail->id }}</td>
-                        <td>{{ $detail->img_path }}</td>
+                        <td>
+                            @if ($detail->img_path)
+                                <img src="{{ asset('storage/' . $detail->img_path) }}" alt="商品画像" style="max-width: 150px;">
+                            @else
+                                画像なし
+                            @endif
+                        </td>
                         <td>{{ $detail->product_name }}</td>
                         <td>{{ $detail->price }}</td>
                         <td>{{ $detail->stock }}</td>
                         <td>{{ optional($detail->company)->company_name ?? '不明な会社' }}</td>
                         <td>{{ $detail->comment }}</td>
                         <td>
-                        <a href="{{ route('update', ['id'=>$detail->id]) }}" class="btn btn-primary">詳細</a>
+                        <a href="{{ route('update', ['id'=>$detail->id]) }}" class="btn btn-primary">編集</a>
                         </td>
                         </td>
                         <td>

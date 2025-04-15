@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <h1>新規登録画面</h1>
-            <form action="{{ route('submit') }}" method="post">
+            <form action="{{ route('submit') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <div class="form-group">
@@ -19,12 +19,17 @@
 
                 <div class="form-group">
                     <label for="company_id">メーカー名</label>
-                    <select class="form-control" id="company_id" name="company_id" placeholder="メーカー名" value="{{ old('company_id') }}">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
+                    <select class="form-control" id="company_id" name="company_id">
+                        <option value="">選択してください</option>
+                        @foreach ($companies as $company)
+                            <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>
+                                {{ $company->company_name }}
+                            </option>
+                        @endforeach
                     </select>
+                    @if($errors->has('company_id'))
+                        <p>{{ $errors->first('company_id') }}</p>
+                    @endif
                 </div>
 
                 <div class="form-group">
@@ -49,6 +54,11 @@
                     @if($errors->has('comment'))
                         <p>{{ $errors->first('comment') }}</p>
                     @endif
+                </div>
+
+                <div class="form-group">
+                    <label for="image">商品画像</label>
+                    <input type="file" class="form-control" id="image" name="image">
                 </div>
 
                 <button type="submit" class="btn btn-default">登録</button>

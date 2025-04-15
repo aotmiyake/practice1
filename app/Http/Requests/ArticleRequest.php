@@ -30,6 +30,7 @@ class ArticleRequest extends FormRequest
             'price' => 'required | max:255',
             'stock' => 'required | max:255',
             'comment' => 'max:10000',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
 
         

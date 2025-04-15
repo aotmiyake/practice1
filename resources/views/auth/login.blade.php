@@ -64,6 +64,11 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="text-center mt-3">
+                            <a class="btn btn-secondary" href="{{ route('register') }}">
+                                {{ __('アカウントを新規登録する') }}
+                            </a>
+                        </div>
                     </form>
                 </div>
             </div>
