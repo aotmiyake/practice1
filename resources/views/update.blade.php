@@ -78,8 +78,10 @@
                     <input type="file" class="form-control" id="image" name="image">
                 </div>
 
-                <button type="submit" class="btn btn-default">更新</button>
-                <a href="{{ route('detail', ['id'=>$update->id]) }}" class="btn btn-primary">戻る</a>
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">更新</button>
+                    <a href="{{ route('detail', ['id' => $update->id]) }}" class="btn btn-secondary">戻る</a>
+                </div>
             </form>
         </div>
     </div>

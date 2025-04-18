@@ -1,89 +1,103 @@
-/* フォント */
-body {
-    font-family: 'Nunito', sans-serif;
-    background-color: #f3f4f6;
-    margin: 0;
-    padding: 1rem;
+/* 1. 全体の余白を少し広く＆中身を中央寄せ */
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* レイアウト用 */
-.main-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* 上寄せ */
-    min-height: 100vh;
-    background-color: #f3f4f6;
-    padding: 1rem;
-    position: relative;
+/* 2. 見出しを大きく・間隔もゆったり */
+h1, h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #111827;
 }
 
-/* ヘッダーリンク */
-.header-links {
-    position: fixed;
-    top: 0;
-    right: 0;
-    padding: 1rem;
+/* 3. フォームの間隔・整列 */
+.form-group {
+    margin-bottom: 1.5rem;
 }
 
-.link {
-    font-size: 0.875rem;
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
     color: #374151;
-    text-decoration: underline;
-    margin-left: 0.5rem;
 }
 
-/* 検索フォーム */
-form input[type="text"],
-form select {
-    padding: 0.5rem;
-    margin-right: 1rem;
+input[type="text"],
+textarea,
+select,
+input[type="file"] {
+    width: 100%;
+    padding: 0.6rem;
     border: 1px solid #d1d5db;
     border-radius: 4px;
+    background-color: #f9fafb;
 }
 
-form input[type="submit"],
-button {
+/* 4. ボタンの並びをいい感じに */
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* 5. バリデーションエラー表示 */
+p.error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* 6. テーブルの見やすさUP */
+table {
+    margin-top: 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background-color: #f3f4f6;
+    font-weight: 600;
+}
+
+/* 7. ボタン全般 */
+.btn {
+    display: inline-block;
     padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary {
     background-color: #3b82f6;
     color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
-form input[type="submit"]:hover,
-button:hover {
+.btn-primary:hover {
     background-color: #2563eb;
+}
+
+.btn-secondary {
+    background-color: #6b7280;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #4b5563;
 }
 
 .btn-delete {
     background-color: #ef4444;
+    color: white;
 }
 
 .btn-delete:hover {
     background-color: #dc2626;
-}
-
-/* テーブル */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 2rem;
-    background-color: #fff;
-}
-
-th, td {
-    padding: 0.75rem;
-    border: 1px solid #e5e7eb;
-    text-align: center;
-}
-
-th {
-    background-color: #f9fafb;
-}
-
-img {
-    display: block;
-    max-width: 100px;
-    height: auto;
 }

@@ -4,22 +4,17 @@
 
 @section('content')
     <div class="container">
-        <div class="content">
-            <h1>詳細画面</h1>
+        <h1>詳細画面</h1>
+
+        <div class="detail-table">
             <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>商品画像</th>
-                        <th>商品名</th>
-                        <th>価格</th>
-                        <th>在庫数</th>
-                        <th>メーカー名</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr>
+                        <th>ID</th>
                         <td>{{ $detail->id }}</td>
+                    </tr>
+                    <tr>
+                        <th>商品画像</th>
                         <td>
                             @if ($detail->img_path)
                                 <img src="{{ asset('storage/' . $detail->img_path) }}" alt="商品画像" style="max-width: 150px;">
@@ -27,21 +22,34 @@
                                 画像なし
                             @endif
                         </td>
+                    </tr>
+                    <tr>
+                        <th>商品名</th>
                         <td>{{ $detail->product_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>価格</th>
                         <td>{{ $detail->price }}</td>
+                    </tr>
+                    <tr>
+                        <th>在庫数</th>
                         <td>{{ $detail->stock }}</td>
+                    </tr>
+                    <tr>
+                        <th>メーカー名</th>
                         <td>{{ optional($detail->company)->company_name ?? '不明な会社' }}</td>
+                    </tr>
+                    <tr>
+                        <th>コメント</th>
                         <td>{{ $detail->comment }}</td>
-                        <td>
-                        <a href="{{ route('update', ['id'=>$detail->id]) }}" class="btn btn-primary">編集</a>
-                        </td>
-                        </td>
-                        <td>
-                            <a href="{{ route('list') }}" class="btn btn-primary">戻る</a>
-                        </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="button-group">
+            <a href="{{ route('update', ['id' => $detail->id]) }}" class="btn btn-primary">編集</a>
+            <a href="{{ route('list') }}" class="btn btn-secondary">戻る</a>
         </div>
     </div>
 @endsection
