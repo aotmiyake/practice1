@@ -1,11 +1,46 @@
-/* 1. 全体の余白を少し広く＆中身を中央寄せ */
-.container {
-    max-width: 800px;
+/* container 幅を狭めて中央寄せ */
+.links,
+.detail-table,
+.button-group,
+.form-group {
+    max-width: 70%;  /* ちょっと広めにしても中央寄せ */
     margin: 2rem auto;
-    padding: 2rem;
+    padding: 1.5rem 2rem;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* ヘッダー：右上固定配置 */
+.header-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.header-links a {
+    text-decoration: none;
+}
+
+/* 検索フォーム中央寄せ */
+.search-form,
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.search-form input[type="text"],
+.search-form select {
+    width: 200px;
+    padding: 0.5rem;
+}
+
+.search-form button {
+    white-space: nowrap;
 }
 
 /* 2. 見出しを大きく・間隔もゆったり */
@@ -13,11 +48,6 @@ h1, h2 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     color: #111827;
-}
-
-/* 3. フォームの間隔・整列 */
-.form-group {
-    margin-bottom: 1.5rem;
 }
 
 label {
@@ -38,7 +68,7 @@ input[type="file"] {
     background-color: #f9fafb;
 }
 
-/* 4. ボタンの並びをいい感じに */
+/* 4. ボタンの並び */
 .button-group {
     display: flex;
     gap: 1rem;
@@ -52,16 +82,27 @@ p.error-message {
     margin-top: 0.25rem;
 }
 
-/* 6. テーブルの見やすさUP */
+/* テーブルを整えて固定レイアウト */
 table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
     margin-top: 2rem;
     border-radius: 8px;
     overflow: hidden;
 }
 
-th {
-    background-color: #f3f4f6;
-    font-weight: 600;
+th, td {
+    padding: 0.75rem;
+    text-align: center;
+    vertical-align: middle;
+    word-wrap: break-word;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* 行の高さを統一 */
+tr {
+    height: 120px; /* 高さ固定 */
 }
 
 /* 7. ボタン全般 */
@@ -73,6 +114,11 @@ th {
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s ease;
+}
+
+.d-btn {
+    background-color: #8dadee;
+    color: black;
 }
 
 .btn-primary {
@@ -100,4 +146,103 @@ th {
 
 .btn-delete:hover {
     background-color: #dc2626;
+}
+/* 商品画像のサイズ制限 */
+td img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+}
+/* 検索フォームを横並びに */
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+/* 検索ボックスの幅制限 */
+.search-form input[type="text"],
+.search-form select {
+    width: 200px;
+}
+
+/* 検索ボタンを中央寄せ */
+.search-form button {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+}
+
+/* テーブルの整形 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: middle;
+}
+
+/* 画像サイズ制限（一覧用） */
+.table-image {
+    max-width: 100px;
+    height: auto;
+}
+
+/* ボタン間の余白 */
+td .btn {
+    margin-right: 0.5rem;
+}
+
+/* フォーム全体の余白・サイズ感調整 */
+.container {
+    padding: 1rem;
+    font-size: 0.95rem;
+}
+
+/* テーブルの文字サイズ・余白微調整 */
+.detail-table th,
+.detail-table td {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+}
+
+/* テーブル全体の高さを抑える */
+.detail-table table tr {
+    height: auto;
+}
+
+/* 商品画像サイズを抑える（詳細・更新共通） */
+.detail-table img,
+.form-group img {
+    max-width: 120px;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+/* コメント欄の高さを固定してコンパクトに */
+textarea#comment {
+    height: 60px;
+    resize: vertical;
+}
+
+/* 入力欄の余白調整 */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    margin-bottom: 0.5rem;
+}
+
+/* 更新画面のフォームと画像表示の間隔調整 */
+.form-group.mb-4 {
+    margin-bottom: 1rem;
+}
+
+/* ボタンの並びを中央に揃える */
+.button-group {
+    justify-content: center;
 }

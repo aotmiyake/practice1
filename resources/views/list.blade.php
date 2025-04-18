@@ -10,13 +10,14 @@
 </head>
 <body>
     <div class="main-container">
+    <h1>商品一覧画面</h1>
         @if (Route::has('login'))
             <div class="header-links">
                 @auth
-                    <a href="{{ url('/list') }}" class="link">Home</a>
-                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                    <a href="{{ url('/list') }}" class="btn d-btn">Home</a>
+                    <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button type="submit" class="link" style="background: none; border: none; color: #374151; cursor: pointer;">
+                        <button type="submit" class="btn d-btn">
                             ログアウト
                         </button>
                     </form>
@@ -29,7 +30,7 @@
             </div>
         @endif
 
-        <div>
+        <div class="search-form">
             <form action="{{ route('list') }}" method="GET">
                 <input type="text" name="keyword" value="{{ old('keyword', $keyword) }}" placeholder="商品名で検索">
                 <select name="company_id">
@@ -56,7 +57,7 @@
                         <th>メーカー名</th>
                         <th>コメント</th>
                         <th colspan="2">
-                            <button onclick="location.href='{{ route('regist') }}'">新規登録</button>
+                            <button onclick="location.href='{{ route('regist') }}'" class="btn btn-primary">新規登録</button>
                         </th>
                     </tr>
                 </thead>
@@ -71,14 +72,12 @@
                             <td>{{ optional($article->company)->company_name ?? '不明な会社' }}</td>
                             <td>{{ $article->comment }}</td>
                             <td>
-                                <a href="{{ route('detail', ['id' => $article->id]) }}">
-                                    <button>詳細</button>
-                                </a>
+                                <a href="{{ route('detail', ['id' => $article->id]) }}" class="btn btn-primary">詳細</a>
                             </td>
                             <td>
                                 <form action="{{ route('delete', ['id' => $article->id]) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn-delete">削除</button>
+                                    <button type="submit" class="btn btn-delete">削除</button>
                                 </form>
                             </td>
                         </tr>
