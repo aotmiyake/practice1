@@ -72,6 +72,25 @@ class ArticleController extends Controller
 
     public function updateSubmit(Request $request, $id)
 {
+    // バリデーション追加
+    $request->validate([
+        'product_name' => 'required|string|max:255',
+        'company_id' => 'required|integer|exists:companies,id',
+        'price' => 'required|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+        'comment' => 'nullable|string|max:1000',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ], [
+        'product_name.required' => '商品名は必須です。',
+        'company_id.required' => 'メーカーを選択してください。',
+        'price.required' => '価格は必須です。',
+        'price.numeric' => '価格は数値で入力してください。',
+        'stock.required' => '在庫数は必須です。',
+        'stock.integer' => '在庫数は整数で入力してください。',
+        'image.image' => '画像ファイルを選択してください。',
+        'image.mimes' => '対応形式は jpeg, png, jpg, gif です。',
+        'image.max' => '画像サイズは最大2MBです。',
+    ]);
     DB::beginTransaction();
     try {
         $articleModel = new Article();
