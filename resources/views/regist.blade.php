@@ -61,8 +61,8 @@
                     <input type="file" class="form-control" id="image" name="image">
                 </div>
 
-                <button type="submit" class="btn btn-default">登録</button>
-                <a href="{{ route('list') }}" class="btn btn-primary">戻る</a>
+                <button type="submit" class="btn btn-primary">登録</button>
+                <a href="{{ route('list') }}" class="btn btn-secondary">戻る</a>
             </form>
         </div>
     </div>
