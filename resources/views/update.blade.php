@@ -72,10 +72,12 @@
                     @endif
                 </div>
 
-                {{-- 商品画像アップロード欄（必要であれば追加） --}}
                 <div class="form-group">
                     <label for="image">商品画像を変更する</label>
                     <input type="file" class="form-control" id="image" name="image">
+                    @if($errors->has('image'))
+                        <p>{{ $errors->first('image') }}</p>
+                    @endif
                 </div>
 
                 <div class="button-group">

@@ -42,18 +42,21 @@ class ArticleRequest extends FormRequest
         'price' => '値段',
         'stock' => '在庫数',
         'comment' => 'コメント',
+        'image' => '商品画像', 
         ];
     }
     public function messages() {
         return [
             'product_name.required' => ':attributeは必須項目です。',
-            'product_name.max' => ':attributeは:max字以内で入力してください。',
             'company_id.required' => ':attributeは必須項目です。',
-            'company_id.max' => ':attributeは:max字以内で入力してください。',
+            'company_id.exists' => '選択された:attributeは存在しません。',
             'price.required' => ':attributeは必須項目です。',
-            'price.max' => ':attributeは:max字以内で入力してください。',
+            'price.numeric' => ':attributeは数値で入力してください。',
             'stock.required' => ':attributeは必須項目です。',
-            'stock.max' => ':attributeは:max字以内で入力してください。',
+            'stock.integer' => ':attributeは整数で入力してください。',
+            'image.image' => '画像ファイルを選択してください。',
+            'image.mimes' => '対応形式は jpeg, png, jpg, gif です。',
+            'image.max' => '画像サイズは最大2MBです。',
             'comment.max' => ':attributeは:max字以内で入力してください。',
         ];
     }
