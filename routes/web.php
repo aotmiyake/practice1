@@ -42,3 +42,8 @@ Route::get('/detail/{id}',[App\Http\Controllers\ArticleController::class, 'detai
 Route::get('/update/{id}',[App\Http\Controllers\ArticleController::class, 'update'])->name('update');
 //情報更新
 Route::post('/update/{id}',[App\Http\Controllers\ArticleController::class, 'updateSubmit'])->name('infoUpdate');
+
+// 検索（非同期用）
+Route::get('/articles/search', [App\Http\Controllers\ArticleController::class, 'searchAjax'])->name('articles.searchAjax');
+// 削除（非同期用）
+Route::delete('/articles/{id}', [App\Http\Controllers\ArticleController::class, 'deleteAjax'])->name('articles.deleteAjax');

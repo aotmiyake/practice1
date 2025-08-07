@@ -1,8 +1,7 @@
 /* container 幅を狭めて中央寄せ */
 .links,
 .detail-table,
-.button-group,
-.form-group {
+.button-group {
     max-width: 70%;  /* ちょっと広めにしても中央寄せ */
     margin: 2rem auto;
     padding: 1.5rem 2rem;
@@ -321,4 +320,24 @@ textarea#comment {
     gap: 0.75rem;
     margin-top: 1.5rem;
     align-items: center;
+}
+
+.remember-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.remember-wrapper input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0; /* ← これが大事 */
+}
+
+.remember-wrapper label {
+    margin: 0;              /* ← これが縦方向のズレを防ぐ */
+    font-weight: normal;
+    color: #374151;
+    line-height: 1;         /* ← ラベルの上下のズレ防止 */
 }

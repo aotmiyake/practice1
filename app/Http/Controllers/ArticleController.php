@@ -70,8 +70,7 @@ class ArticleController extends Controller
         return redirect(route('regist'));
     }
 
-    public function updateSubmit(ArticleRequest $request, $id)
-    {
+    public function updateSubmit(ArticleRequest $request, $id){
         DB::beginTransaction();
         try {
             $articleModel = new Article();
@@ -87,5 +86,32 @@ class ArticleController extends Controller
 
     public function __construct(){
         $this->middleware('auth');
+    }
+
+    // Ajax検索
+    public function searchAjax(Request $request){
+        $articleModel = new Article();
+        $keyword = $request->input('keyword', '');
+        $company_id = $request->input('company_id', '');
+        $price_min = $request->input('price_min');
+        $price_max = $request->input('price_max');
+        $stock_min = $request->input('stock_min');
+        $stock_max = $request->input('stock_max');
+
+        // 価格と在庫数の条件を含めて検索
+        $articles = $articleModel->searchList($keyword, $company_id, $price_min, $price_max, $stock_min, $stock_max);
+
+        return response()->json($articles);
+    }
+
+    // Ajax削除
+    public function deleteAjax($id){
+        try {
+            (new Article())->deleteProduct($id);
+            return response()->json(['message' => '削除成功']);
+        } catch (\Exception $e) {
+            \Log::error('商品削除エラー(Ajax): ' . $e->getMessage());
+            return response()->json(['message' => '削除失敗'], 500);
+        }
     }
 }

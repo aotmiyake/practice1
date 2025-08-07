@@ -31,12 +31,9 @@
         </div>
 
         {{-- チェックボックス --}}
-        <div class="form-group mb-3 d-flex align-items-center">
-            <input class="form-check-input me-2" type="checkbox" name="remember" id="remember"
-                {{ old('remember') ? 'checked' : '' }}>
-            <label class="form-check-label mb-0" for="remember">
-                ログイン状態を保持する
-            </label>
+        <div class="remember-wrapper">
+            <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+            <label for="remember">ログイン状態を保持する</label>
         </div>
 
         {{-- ボタン類 --}}
